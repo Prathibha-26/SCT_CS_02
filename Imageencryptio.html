@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Pixel Encryption Simulator</title>
+  <style>
+    body { font-family: Arial; margin: 30px; }
+    textarea, input { width: 300px; padding: 8px; margin-top: 10px; }
+    button { margin-top: 10px; padding: 8px 16px; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>🖼️ Image Pixel Encryption Simulator</h2>
+  
+  <label>Enter Pixel Values (comma separated):</label><br>
+  <textarea id="pixels" placeholder="Example: 100,150,200,255"></textarea><br>
+  
+  <label>Enter Key (e.g., 50):</label><br>
+  <input type="number" id="key"><br>
+  
+  <button onclick="encrypt()">🔒 Encrypt</button>
+  <button onclick="decrypt()">🔓 Decrypt</button>
+  
+  <div id="result"></div>
+
+  <script>
+    function encrypt() {
+      let pixels = document.getElementById("pixels").value.split(",");
+      let key = parseInt(document.getElementById("key").value);
+      if (isNaN(key)) {
+        alert("Please enter a valid number as key.");
+        return;
+      }
+      let encrypted = pixels.map(val => (parseInt(val) + key) % 256);
+      document.getElementById("result").innerText = "Encrypted Pixels: " + encrypted.join(",");
+    }
+
+    function decrypt() {
+      let pixels = document.getElementById("pixels").value.split(",");
+      let key = parseInt(document.getElementById("key").value);
+      if (isNaN(key)) {
+        alert("Please enter a valid number as key.");
+        return;
+      }
+      let decrypted = pixels.map(val => (parseInt(val) - key + 256) % 256);
+      document.getElementById("result").innerText = "Decrypted Pixels: " + decrypted.join(",");
+    }
+  </script>
+</body>
+</html>
